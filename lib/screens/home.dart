@@ -12,40 +12,10 @@ class Home extends StatelessWidget {
 
   final String usuario = 'Admin';
 
-  _geraAnalysis() {
-
-    Analysis a = Analysis(1, "Amostra 1", DateTime.now(), "Não apresenta alterações", "Animal não apresenta mastite", 200,
-        10, "Não apresenta resíduos", "Sabor apresenta leve alteração", "Coloração normal", "Não apresenta odor",
-        "Viscosidade normal", "Conservação é realizada de forma correta",
-        Farm(1, 'Dourados', 'Pedro Ribeiro', 'Santa Maria/RS', 20, 10));
-
-    Analysis a1 = Analysis(2, "Amostra 2", DateTime.now(), "Não apresenta alterações", "Animal não apresenta mastite", 120,
-        12, "Não apresenta resíduos", "Sabor não apresenta alteração", "Coloração anormal", "Apresenta odor leve",
-        "Viscosidade normal", "Conservação é realizada de forma correta",
-        Farm(2, 'Baú do Ouro', 'João dos Santos', 'Venâncio Aires/RS', 35, 15));
-
-    AnalysisDAO.adicionar(a);
-    AnalysisDAO.adicionar(a1);
-
-  }
-
-  _geraFarms () {
-
-    Farm f = Farm(1, 'Dourados', 'Pedro Ribeiro', 'Santa Maria/RS', 20, 10);
-    Farm f1 = Farm(2, 'Baú do Ouro', 'João dos Santos', 'Venâncio Aires/RS', 35, 15);
-    Farm f2 = Farm(3, 'Recanto do Alemão', 'Fernando Cardoso', 'Santa Cruz do Sul/RS', 24, 12);
-    Farm f3 = Farm(4, 'Pintado', 'Leonardo Medeiros', 'Venâncio Aires/RS', 10, 8);
-
-    FarmDAO.adicionar(f);
-    FarmDAO.adicionar(f1);
-    FarmDAO.adicionar(f2);
-    FarmDAO.adicionar(f3);
-  }
-
   @override
   Widget build(BuildContext context) {
-    _geraFarms();
-    _geraAnalysis();
+    FarmDAO.populaFarms;
+    AnalysisDAO.populaAnalysis;
     return MaterialApp(
       title: 'Home',
       home: Scaffold(
