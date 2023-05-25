@@ -4,6 +4,7 @@ import 'package:appmilkanalyse/model/farm.dart';
 import 'package:appmilkanalyse/screens/home.dart';
 import 'package:appmilkanalyse/screens/listanalysis.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
 class CreateAnalysis extends StatelessWidget {
 
@@ -201,14 +202,15 @@ class CreateAnalysis extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(80.0)
                             )
                           ),
-                          onPressed: () {
+                          onPressed: () async {
                             debugPrint("Clicou no botão de Salvar");
+                            Position position = await AnalysisDAO.requestLocation();
                             List<Analysis> lista = AnalysisDAO.listarAnalysis;
                             Analysis analysis = Analysis(lista.length, this._nomeController.text, DateTime.now(),
                                 this._testeCEController.text, this._cmtController.text, double.parse(this._ccsController.text),
                                 double.parse(this._cbtController.text), this._residuosAntibioticosController.text, this._saborController.text,
                                 this._corController.text, this._odorController.text, this._viscusidadeController.text, this._conservacaoController.text,
-                                Farm (4, 'Pintado', 'Leonardo Medeiros', 'Venâncio Aires/RS', 10, 8));
+                                Farm (4, 'Pintado', 'Leonardo Medeiros', 'Venâncio Aires/RS', 10, 8, position));
                             AnalysisDAO.adicionar(analysis);
                             Navigator.push( context, MaterialPageRoute(builder: (context) {
                               return ListaAnalisis();

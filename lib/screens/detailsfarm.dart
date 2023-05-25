@@ -63,6 +63,18 @@ class DetailsFarm extends StatelessWidget {
                       ),
                     ),
                     Container(
+                      padding: EdgeInsets.fromLTRB(20, 10, 20, 8),
+                      child: Text(
+                        "Latitude: ${this._farm.location.latitude}",
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(20, 10, 20, 8),
+                      child: Text(
+                        "Longitude: ${this._farm.location.longitude}",
+                      ),
+                    ),
+                    Container(
                       padding: EdgeInsets.all(20),
                       child: ElevatedButton.icon(
                         label: Text('Voltar'),

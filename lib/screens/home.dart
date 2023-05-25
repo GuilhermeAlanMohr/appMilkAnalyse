@@ -14,112 +14,124 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    FarmDAO.populaFarms;
-    AnalysisDAO.populaAnalysis;
+    populaListas();
     return MaterialApp(
       title: 'Home',
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Login"),
+          title: Text("Home"),
           backgroundColor: Colors.blue,
         ),
         body: Container(
           child: SingleChildScrollView(
             child: Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    child: FlutterLogo(size: 80),
-                    padding: EdgeInsets.fromLTRB(20, 20, 20, 70),
-                  ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(40, 20, 20, 10),
-                    child: Text('Bem Vindo, Usuario '+usuario),
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(20),
-                    child: ElevatedButton.icon(
-                      label: Text('Cadastrar Fazenda'),
-                      style: ElevatedButton.styleFrom(
-                          minimumSize: Size.fromHeight(50),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(80.0)
-                          )
-                      ),
-                      onPressed: () {
-                        debugPrint("Clicou no botão de Cadastrar Fazenda");
-                        Navigator.push( context, MaterialPageRoute(builder: (context) {
-                          return CreateFarm();
-                        }));
-                      },
-                      icon: Icon(Icons.agriculture, color: Colors.white),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      child: FlutterLogo(size: 80),
+                      padding: EdgeInsets.fromLTRB(20, 20, 20, 70),
                     ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(20),
-                    child: ElevatedButton.icon(
-                      label: Text('Lista de Fazendas'),
-                      style: ElevatedButton.styleFrom(
-                          minimumSize: Size.fromHeight(50),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(80.0)
-                          )
-                      ),
-                      onPressed: () {
-                        debugPrint("Clicou no botão de Listagem das Fazendas");
-                        Navigator.push( context, MaterialPageRoute(builder: (context) {
-                          return ListaFarms();
-                        }));
-                      },
-                      icon: Icon(Icons.list, color: Colors.white),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(40, 20, 20, 10),
+                      child: Text('Bem Vindo, Usuario ' + usuario),
                     ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(20),
-                    child: ElevatedButton.icon(
-                      label: Text('Cadastrar Análise'),
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: Size.fromHeight(50),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(80.0)
-                        )
+                    Container(
+                      padding: EdgeInsets.all(20),
+                      child: ElevatedButton.icon(
+                        label: Text('Cadastrar Fazenda'),
+                        style: ElevatedButton.styleFrom(
+                            minimumSize: Size.fromHeight(50),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(80.0)
+                            )
+                        ),
+                        onPressed: () {
+                          debugPrint("Clicou no botão de Cadastrar Fazenda");
+                          Navigator.push(
+                              context, MaterialPageRoute(builder: (context) {
+                            return CreateFarm();
+                          }));
+                        },
+                        icon: Icon(Icons.agriculture, color: Colors.white),
                       ),
-                      onPressed: () {
-                        debugPrint("Clicou no botão de Cadastrar Análise");
-                        Navigator.push( context, MaterialPageRoute(builder: (context) {
-                          return CreateAnalysis();
-                        }));
-                      },
-                      icon: Icon(Icons.assignment_outlined, color: Colors.white),
                     ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(20),
-                    child: ElevatedButton.icon(
-                      label: Text('Lista de Análises'),
-                      style: ElevatedButton.styleFrom(
-                          minimumSize: Size.fromHeight(50),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(80.0)
-                          )
+                    Container(
+                      padding: EdgeInsets.all(20),
+                      child: ElevatedButton.icon(
+                        label: Text('Lista de Fazendas'),
+                        style: ElevatedButton.styleFrom(
+                            minimumSize: Size.fromHeight(50),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(80.0)
+                            )
+                        ),
+                        onPressed: () {
+                          debugPrint(
+                              "Clicou no botão de Listagem das Fazendas");
+                          Navigator.push(
+                              context, MaterialPageRoute(builder: (context) {
+                            return ListaFarms();
+                          }));
+                        },
+                        icon: Icon(Icons.list, color: Colors.white),
                       ),
-                      onPressed: () {
-                        debugPrint("Clicou no botão de Lista de Análises");
-                        Navigator.push( context, MaterialPageRoute(builder: (context) {
-                          return ListaAnalisis();
-                        }));
-                      },
-                      icon: Icon(Icons.list, color: Colors.white),
                     ),
-                  ),
-                ],
-              )
+                    Container(
+                      padding: EdgeInsets.all(20),
+                      child: ElevatedButton.icon(
+                        label: Text('Cadastrar Análise'),
+                        style: ElevatedButton.styleFrom(
+                            minimumSize: Size.fromHeight(50),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(80.0)
+                            )
+                        ),
+                        onPressed: () {
+                          debugPrint("Clicou no botão de Cadastrar Análise");
+                          Navigator.push(
+                              context, MaterialPageRoute(builder: (context) {
+                            return CreateAnalysis();
+                          }));
+                        },
+                        icon: Icon(
+                            Icons.assignment_outlined, color: Colors.white),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(20),
+                      child: ElevatedButton.icon(
+                        label: Text('Lista de Análises'),
+                        style: ElevatedButton.styleFrom(
+                            minimumSize: Size.fromHeight(50),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(80.0)
+                            )
+                        ),
+                        onPressed: () {
+                          debugPrint("Clicou no botão de Lista de Análises");
+                          Navigator.push(
+                              context, MaterialPageRoute(builder: (context) {
+                            return ListaAnalisis();
+                          }));
+                        },
+                        icon: Icon(Icons.list, color: Colors.white),
+                      ),
+                    ),
+                  ],
+                )
             ),
           ),
         ),
       ),
     );
   }
+
+  static populaListas() async{
+    await FarmDAO.populaFarms;
+    await AnalysisDAO.populaAnalysis;
+    return true;
+  }
+
 }

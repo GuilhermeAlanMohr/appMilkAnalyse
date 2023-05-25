@@ -2,6 +2,7 @@ import 'package:appmilkanalyse/dao/farm_dao.dart';
 import 'package:appmilkanalyse/model/farm.dart';
 import 'package:appmilkanalyse/screens/listfarms.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
 class CreateFarm extends StatelessWidget {
 
@@ -105,14 +106,16 @@ class CreateFarm extends StatelessWidget {
                           )
 
                         ),
-                        onPressed: () {
+                        onPressed: () async {
+                          Position _position = await FarmDAO.requestLocation();
                           debugPrint("Clicou no botão de Salvar");
                           if (this._tamanhoController.text != '' && this._cidadeController.text != null &&
                               this._quantidadeAnimaisController.text != null && this._nomeDonoController.text != '' &&
                               this._nomeFarmController.text != ''){
                             List<Farm> lista = FarmDAO.listarFarms;
                             Farm f = Farm(lista.length, this._nomeFarmController.text, this._nomeDonoController.text, this._cidadeController.text,
-                                int.parse(this._quantidadeAnimaisController.text), double.parse(this._tamanhoController.text));
+                                int.parse(this._quantidadeAnimaisController.text), double.parse(this._tamanhoController.text),
+                                _position);
                             FarmDAO.adicionar(f);
                             Navigator.push( context, MaterialPageRoute(builder: (context) {
                               return ListaFarms();

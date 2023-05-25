@@ -1,3 +1,5 @@
+import 'package:geolocator/geolocator.dart';
+
 class Farm {
 
   int _codFarm;
@@ -6,8 +8,9 @@ class Farm {
   String _cidade;
   int _quantidadeAnimais;
   double _tamanho;
+  Position _location;
 
-  Farm (this._codFarm, this._nomeFarm, this._nomeDonoFarm, this._cidade, this._quantidadeAnimais, this._tamanho);
+  Farm (this._codFarm, this._nomeFarm, this._nomeDonoFarm, this._cidade, this._quantidadeAnimais, this._tamanho, this._location);
 
   double get tamanho => _tamanho;
 
@@ -45,4 +48,9 @@ class Farm {
     _codFarm = value;
   }
 
+  Position get location => _location;
+
+  set location(Position value) {
+    _location = value;
+  }
 }
