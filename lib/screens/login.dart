@@ -1,4 +1,8 @@
+import 'package:appmilkanalyse/dao/analysis_dao.dart';
+import 'package:appmilkanalyse/dao/user_dao.dart';
+import 'package:appmilkanalyse/model/user.dart';
 import 'package:appmilkanalyse/screens/home.dart';
+import 'package:appmilkanalyse/service/analysis_service.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatelessWidget {
@@ -62,11 +66,18 @@ class Login extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(80.0)
                             )
                         ),
-                        onPressed: () {
+                        onPressed: () async {
                           debugPrint("Clicou no botão de Login");
                           final String email = this._emailController.text;
                           final String password = this._passwordController.text;
                           if (email == 'admin@admin.com' && password == '1234') {
+
+                            User user = await AnalysisService().getUsers();
+                            debugPrint(user.toString());
+
+                            final User u = new User(1, 'Guilherme', "gui@gmail.com", '1234', 'teste');
+                            UserDAO().adicionarUser(u);
+
                             Navigator.push( context, MaterialPageRoute(builder: (context) {
                               return Home();
                             }));

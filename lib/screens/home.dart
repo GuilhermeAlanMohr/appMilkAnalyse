@@ -1,7 +1,7 @@
 import 'package:appmilkanalyse/dao/analysis_dao.dart';
 import 'package:appmilkanalyse/dao/farm_dao.dart';
-import 'package:appmilkanalyse/model/analysis.dart';
-import 'package:appmilkanalyse/model/farm.dart';
+import 'package:appmilkanalyse/dao/user_dao.dart';
+import 'package:appmilkanalyse/model/user.dart';
 import 'package:appmilkanalyse/screens/createanlysis.dart';
 import 'package:appmilkanalyse/screens/createfarm.dart';
 import 'package:appmilkanalyse/screens/listanalysis.dart';
@@ -14,6 +14,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    carregarUsers();
     populaListas();
     return MaterialApp(
       title: 'Home',
@@ -68,8 +69,7 @@ class Home extends StatelessWidget {
                             )
                         ),
                         onPressed: () {
-                          debugPrint(
-                              "Clicou no botão de Listagem das Fazendas");
+                          debugPrint("Clicou no botão de Listagem das Fazendas");
                           Navigator.push(
                               context, MaterialPageRoute(builder: (context) {
                             return ListaFarms();
@@ -131,7 +131,13 @@ class Home extends StatelessWidget {
   static populaListas() async{
     await FarmDAO.populaFarms;
     await AnalysisDAO.populaAnalysis;
-    return true;
+  }
+
+  static void carregarUsers() async{
+    final List<User> listaUsers = await UserDAO().getUsers();
+    for (User u in listaUsers){
+      debugPrint(u.toString());
+    }
   }
 
 }

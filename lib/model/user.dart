@@ -37,4 +37,23 @@ class User {
   set senha(String value) {
     _senha = value;
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'codUser' : _codUser,
+      'nomeUser' : _nomeUser,
+      'email' : _email,
+      'token': _token,
+      'senha': _senha,
+    };
+  }
+
+  factory User.fromMap (Map<String, dynamic> userMap){
+    return new User(userMap['codUser'], userMap['nomeUser'], userMap['email'], userMap['senha'], userMap['token']);
+  }
+
+  @override
+  String toString() {
+    return 'User{_codUser: $_codUser, _nomeUser: $_nomeUser, _email: $_email, _token: $_token, _senha: $_senha}';
+  }
 }

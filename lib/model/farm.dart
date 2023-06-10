@@ -53,4 +53,21 @@ class Farm {
   set location(Position value) {
     _location = value;
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'codFarm' : _codFarm,
+      'nomeFarm' : _nomeFarm,
+      'nomeDonoFarm' : _nomeDonoFarm,
+      'cidade': _cidade,
+      'tamanho': _tamanho,
+      'quantidadeAnimais': _quantidadeAnimais,
+      'location': _location,
+    };
+  }
+
+  factory Farm.fromMap (Map<String, dynamic> json){
+    return new Farm(json['codFarm'], json['nomeFarm'], json['nomeDonoFarm'], json['cidade'], json['quantidadeAnimais'],json['tamanho'],json['location']);
+  }
+
 }

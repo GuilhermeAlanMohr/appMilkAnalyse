@@ -103,4 +103,43 @@ class Analysis {
   set farm(Farm value) {
     _farm = value;
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'codAnalysis' : _codAnalysis,
+      'nomeAnalysis' : _nomeAnalysis,
+      'dataOrdenha' : _dataOrdenha,
+      'testeCaneca': _testeCaneca,
+      'cmt': _cmt,
+      'ccs': _ccs,
+      'cbt': _cbt,
+      'residuosAntibioticos': _residuosAntibioticos,
+      'sabor' : _sabor,
+      'cor': _cor,
+      'odor': _odor,
+      'viscusidade': _viscusidade,
+      'conservacao': _conservacao,
+      'farm': _farm,
+    };
+  }
+
+  factory Analysis.fromMap (Map<String, dynamic> json){
+    return new Analysis(
+      json['codAnalysis'],
+      json['nomeAnalysis'],
+      json['dataOrdenha'],
+      json['testeCaneca'],
+      json['cmt'],
+      json['ccs'],
+      json['cbt'],
+      json['residuosAntibioticos'],
+      json['sabor'],
+      json['cor'],
+      json['odor'],
+      json['viscusidade'],
+      json['conservacao'],
+      json['farm'],
+    );
+  }
+
 }
