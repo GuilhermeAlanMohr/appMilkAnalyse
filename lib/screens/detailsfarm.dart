@@ -1,11 +1,25 @@
+import 'dart:async';
+
 import 'package:appmilkanalyse/model/farm.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geocoding/geocoding.dart';
 
 class DetailsFarm extends StatelessWidget {
 
+  late LatLng _localizacao;
   final Farm _farm;
-  DetailsFarm(this._farm);
+  late List<Placemark> _marcador;
 
+  DetailsFarm(this._farm){
+    this._localizacao = LatLng(this._farm.location.latitude, this._farm.location.longitude);
+    marcar();
+  }
+
+  void marcar() async {
+    this._marcador = await placemarkFromCoordinates(_localizacao.latitude, _localizacao.longitude);
+  }
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -63,16 +77,10 @@ class DetailsFarm extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.fromLTRB(20, 10, 20, 8),
-                      child: Text(
-                        "Latitude: ${this._farm.location.latitude}",
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.fromLTRB(20, 10, 20, 8),
-                      child: Text(
-                        "Longitude: ${this._farm.location.longitude}",
-                      ),
+                      color: Colors.lightGreen,
+                      width: 350,
+                      height: 550,
+                      child: Text("")
                     ),
                     Container(
                       padding: EdgeInsets.all(20),

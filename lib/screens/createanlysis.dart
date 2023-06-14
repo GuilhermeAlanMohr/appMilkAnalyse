@@ -5,6 +5,7 @@ import 'package:appmilkanalyse/screens/home.dart';
 import 'package:appmilkanalyse/screens/listanalysis.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:camera/camera.dart';
 
 class CreateAnalysis extends StatelessWidget {
 
@@ -23,8 +24,17 @@ class CreateAnalysis extends StatelessWidget {
 
   final GlobalKey _formKey = GlobalKey();
 
+  late List<CameraDescription> _cameras;
+  late CameraDescription _firstCamera;
+
+  void acessarCamera() async{
+    this._cameras = await availableCameras();
+    this._firstCamera = this._cameras.first;
+  }
+
   @override
   Widget build(BuildContext context) {
+    acessarCamera();
     return MaterialApp(
       title: "Cadastro de Análise",
       home: Scaffold(
@@ -192,6 +202,9 @@ class CreateAnalysis extends StatelessWidget {
                           ),
                         ),
                       ),
+                      TakePictureScreen(
+                        camera: this._firstCamera
+                      ),
                       Container(
                         padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                         child: ElevatedButton.icon(
@@ -267,5 +280,50 @@ class CreateAnalysis extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class TakePictureScreen extends StatefulWidget {
+  const TakePictureScreen({
+    required this.camera,
+  });
+
+  final CameraDescription camera;
+
+  @override
+  TakePictureScreenState createState() => TakePictureScreenState();
+}
+
+class TakePictureScreenState extends State<TakePictureScreen> {
+  late CameraController _controller;
+  late Future<void> _initializeControllerFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    // To display the current output from the Camera,
+    // create a CameraController.
+    _controller = CameraController(
+      // Get a specific camera from the list of available cameras.
+      widget.camera,
+      // Define the resolution to use.
+      ResolutionPreset.medium,
+    );
+
+    // Next, initialize the controller. This returns a Future.
+    _initializeControllerFuture = _controller.initialize();
+  }
+
+  @override
+  void dispose() {
+    // Dispose of the controller when the widget is disposed.
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // Fill this out in the next steps.
+    return Container();
   }
 }
