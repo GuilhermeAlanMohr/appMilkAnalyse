@@ -92,7 +92,7 @@ class Home extends StatelessWidget {
                           debugPrint("Clicou no botão de Cadastrar Análise");
                           Navigator.push(
                               context, MaterialPageRoute(builder: (context) {
-                            return CreateAnalysis();
+                            return CreateAnalysis(null);
                           }));
                         },
                         icon: Icon(

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:appmilkanalyse/model/analysis.dart';
 import 'package:flutter/material.dart';
 
@@ -9,10 +11,10 @@ class DetailsAnalysis extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Cadastro de Análise",
+      title: "Detalhes da Análise",
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Cadastro de Análise'),
+          title: Text('Detalhes da Análise'),
           backgroundColor: Colors.blue,
         ),
         body: Container(
@@ -43,6 +45,72 @@ class DetailsAnalysis extends StatelessWidget {
                       child: Text(
                         "Data da Ordenha: ${this._analysis.dataOrdenha}",
                       ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(20, 10, 20, 8),
+                      child: Text(
+                        "Descrição do Teste de Caneca Escura: ${this._analysis.testeCaneca}",
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(20, 10, 20, 8),
+                      child: Text(
+                        "Relatório do CMT: ${this._analysis.cmt}",
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(20, 10, 20, 8),
+                      child: Text(
+                        "Relatório de Contagem de Células Somáticas (CCS): ${this._analysis.ccs}",
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(20, 10, 20, 8),
+                      child: Text(
+                        "Relatório de Contagem de Bactérias Totais (CBT): ${this._analysis.cbt}",
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(20, 10, 20, 8),
+                      child: Text(
+                        "Resíduos Antibióticos: ${this._analysis.residuosAntibioticos}",
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(20, 10, 20, 8),
+                      child: Text(
+                        "Cor do Leite: ${this._analysis.cor}",
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(20, 10, 20, 8),
+                      child: Text(
+                        "Sabor do Leite: ${this._analysis.sabor}",
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(20, 10, 20, 8),
+                      child: Text(
+                        "Odor do Leite: ${this._analysis.odor}",
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(20, 10, 20, 8),
+                      child: Text(
+                        "Viscusidade do Leite: ${this._analysis.viscusidade}",
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(20, 10, 20, 8),
+                      child: Text(
+                        "Conservação do Leite: ${this._analysis.conservacao}",
+                      ),
+                    ),
+                    this._analysis.foto.isEmpty ? Container(
+                      child: Text("Análise sem imagem armazenada"),
+                    ) : Container(
+                      child: this._analysis.foto.startsWith("images/") ? Image.asset(this._analysis.foto) : Image.file(File(this._analysis.foto)),
+                      margin: EdgeInsets.all(15),
                     ),
                     Container(
                       padding: EdgeInsets.all(20),

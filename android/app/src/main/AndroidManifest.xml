@@ -2,7 +2,11 @@
     package="com.example.appmilkanalyse">
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-   <application
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <application
         android:label="appmilkanalyse"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

@@ -113,7 +113,7 @@ class CreateFarm extends StatelessWidget {
                               this._quantidadeAnimaisController.text != null && this._nomeDonoController.text != '' &&
                               this._nomeFarmController.text != ''){
                             List<Farm> lista = FarmDAO.listarFarms;
-                            Farm f = Farm(lista.length, this._nomeFarmController.text, this._nomeDonoController.text, this._cidadeController.text,
+                            Farm f = Farm(lista.length+1, this._nomeFarmController.text, this._nomeDonoController.text, this._cidadeController.text,
                                 int.parse(this._quantidadeAnimaisController.text), double.parse(this._tamanhoController.text),
                                 _position);
                             FarmDAO.adicionar(f);

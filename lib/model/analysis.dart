@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:ui';
+
 import 'package:appmilkanalyse/model/farm.dart';
 
 class Analysis {
@@ -16,9 +19,10 @@ class Analysis {
   String _viscusidade;
   String _conservacao;
   Farm _farm;
+  String _foto;
 
   Analysis (this._codAnalysis, this._nomeAnalysis, this._dataOrdenha, this._testeCaneca, this._cmt, this._ccs, this._cbt,
-      this._residuosAntibioticos, this._sabor, this._cor, this._odor, this._viscusidade, this._conservacao, this._farm);
+      this._residuosAntibioticos, this._sabor, this._cor, this._odor, this._viscusidade, this._conservacao, this._farm, this._foto);
 
   String get conservacao => _conservacao;
 
@@ -104,6 +108,13 @@ class Analysis {
     _farm = value;
   }
 
+
+  String get foto => _foto;
+
+  set foto(String foto){
+    _foto = foto;
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'codAnalysis' : _codAnalysis,
@@ -120,6 +131,7 @@ class Analysis {
       'viscusidade': _viscusidade,
       'conservacao': _conservacao,
       'farm': _farm,
+      'foto': _foto,
     };
   }
 
@@ -139,7 +151,12 @@ class Analysis {
       json['viscusidade'],
       json['conservacao'],
       json['farm'],
+      json['foto'],
     );
   }
 
+  @override
+  String toString() {
+    return 'Analysis{_codAnalysis: $_codAnalysis, _nomeAnalysis: $_nomeAnalysis, _dataOrdenha: $_dataOrdenha, _testeCaneca: $_testeCaneca, _cmt: $_cmt, _ccs: $_ccs, _cbt: $_cbt, _residuosAntibioticos: $_residuosAntibioticos, _sabor: $_sabor, _cor: $_cor, _odor: $_odor, _viscusidade: $_viscusidade, _conservacao: $_conservacao, _farm: $_farm, _foto: $_foto}';
+  }
 }

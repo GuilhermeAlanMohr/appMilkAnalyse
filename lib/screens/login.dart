@@ -72,8 +72,8 @@ class Login extends StatelessWidget {
                           final String password = this._passwordController.text;
                           if (email == 'admin@admin.com' && password == '1234') {
 
-                            User user = await AnalysisService().getUsers();
-                            debugPrint(user.toString());
+                            //User user = await AnalysisService().getUsers();
+                            //debugPrint(user.toString());
 
                             final User u = new User(1, 'Guilherme', "gui@gmail.com", '1234', 'teste');
                             UserDAO().adicionarUser(u);

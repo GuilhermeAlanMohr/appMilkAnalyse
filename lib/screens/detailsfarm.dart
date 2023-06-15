@@ -18,6 +18,11 @@ class DetailsFarm extends StatelessWidget {
 
   void marcar() async {
     this._marcador = await placemarkFromCoordinates(_localizacao.latitude, _localizacao.longitude);
+    debugPrint(this._marcador.elementAt(0).country);
+    debugPrint(this._marcador.elementAt(0).locality);
+    debugPrint(this._marcador.elementAt(0).administrativeArea);
+    debugPrint(this._marcador.elementAt(0).postalCode);
+    debugPrint(this._marcador.elementAt(0).street);
   }
   
   @override
@@ -75,12 +80,6 @@ class DetailsFarm extends StatelessWidget {
                       child: Text(
                         "Tamanho da Fazenda: ${this._farm.tamanho}",
                       ),
-                    ),
-                    Container(
-                      color: Colors.lightGreen,
-                      width: 350,
-                      height: 550,
-                      child: Text("")
                     ),
                     Container(
                       padding: EdgeInsets.all(20),

@@ -70,4 +70,8 @@ class Farm {
     return new Farm(json['codFarm'], json['nomeFarm'], json['nomeDonoFarm'], json['cidade'], json['quantidadeAnimais'],json['tamanho'],json['location']);
   }
 
+  @override
+  String toString() {
+    return 'Farm{_codFarm: $_codFarm, _nomeFarm: $_nomeFarm, _nomeDonoFarm: $_nomeDonoFarm, _cidade: $_cidade, _quantidadeAnimais: $_quantidadeAnimais, _tamanho: $_tamanho, _location: $_location}';
+  }
 }
