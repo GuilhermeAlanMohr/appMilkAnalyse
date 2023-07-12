@@ -19,7 +19,7 @@ class Analysis {
   String _viscusidade;
   String _conservacao;
   Farm _farm;
-  String _foto;
+  List<int> _foto;
 
   Analysis (this._codAnalysis, this._nomeAnalysis, this._dataOrdenha, this._testeCaneca, this._cmt, this._ccs, this._cbt,
       this._residuosAntibioticos, this._sabor, this._cor, this._odor, this._viscusidade, this._conservacao, this._farm, this._foto);
@@ -109,9 +109,9 @@ class Analysis {
   }
 
 
-  String get foto => _foto;
+  List<int> get foto => _foto;
 
-  set foto(String foto){
+  set foto(List<int> foto){
     _foto = foto;
   }
 

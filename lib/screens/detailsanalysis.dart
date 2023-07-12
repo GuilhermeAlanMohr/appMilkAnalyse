@@ -1,11 +1,15 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:appmilkanalyse/model/analysis.dart';
+import 'package:appmilkanalyse/screens/imageviewer.dart';
 import 'package:flutter/material.dart';
 
 class DetailsAnalysis extends StatelessWidget {
 
   final Analysis _analysis;
+  final Uint8List converter;
+
   DetailsAnalysis(this._analysis);
 
   @override
@@ -106,12 +110,15 @@ class DetailsAnalysis extends StatelessWidget {
                         "Conservação do Leite: ${this._analysis.conservacao}",
                       ),
                     ),
-                    this._analysis.foto.isEmpty ? Container(
-                      child: Text("Análise sem imagem armazenada"),
-                    ) : Container(
-                      child: this._analysis.foto.startsWith("images/") ? Image.asset(this._analysis.foto) : Image.file(File(this._analysis.foto)),
-                      margin: EdgeInsets.all(15),
+                    Container(
+                      child: ImageViewer(imageBytes: Uint8List.fromList(this._analysis.foto))
                     ),
+                    // this._analysis.foto.isEmpty ? Container(
+                    //   child: Text("Análise sem imagem armazenada"),
+                    // ) : Container(
+                    //   child: this._analysis.foto.startsWith("images/") ? Image.asset(this._analysis.foto) : Image.file(File(this._analysis.foto)),
+                    //   margin: EdgeInsets.all(15),
+                    // ),
                     Container(
                       padding: EdgeInsets.all(20),
                       child: ElevatedButton.icon(
