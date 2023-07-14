@@ -12,21 +12,21 @@ class FarmDAO {
   }
 
   static adicionar(Farm f) {
-    _listFarms.add(f);
+    // _listFarms.add(f);
   }
 
   static get populaFarms async{
 
-    Position position = await requestLocation();
-    Farm f = Farm(1, 'Dourados', 'Pedro Ribeiro', 'Santa Maria/RS', 20, 10, position);
-    Farm f1 = Farm(2, 'Baú do Ouro', 'João dos Santos', 'Venâncio Aires/RS', 35, 15, position);
-    Farm f2 = Farm(3, 'Recanto do Alemão', 'Fernando Cardoso', 'Santa Cruz do Sul/RS', 24, 12, position);
-    Farm f3 = Farm(4, 'Pintado', 'Leonardo Medeiros', 'Venâncio Aires/RS', 10, 8, position);
-
-    FarmDAO.adicionar(f);
-    FarmDAO.adicionar(f1);
-    FarmDAO.adicionar(f2);
-    FarmDAO.adicionar(f3);
+    // Position position = await requestLocation();
+    // Farm f = Farm(1, 'Dourados', 'Pedro Ribeiro', 'Santa Maria/RS', 20, 10, position);
+    // Farm f1 = Farm(2, 'Baú do Ouro', 'João dos Santos', 'Venâncio Aires/RS', 35, 15, position);
+    // Farm f2 = Farm(3, 'Recanto do Alemão', 'Fernando Cardoso', 'Santa Cruz do Sul/RS', 24, 12, position);
+    // Farm f3 = Farm(4, 'Pintado', 'Leonardo Medeiros', 'Venâncio Aires/RS', 10, 8, position);
+    //
+    // FarmDAO.adicionar(f);
+    // FarmDAO.adicionar(f1);
+    // FarmDAO.adicionar(f2);
+    // FarmDAO.adicionar(f3);
   }
 
   static Future<Position> requestLocation() async {
@@ -63,7 +63,7 @@ class FarmDAO {
 
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
-    return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.medium);
+    return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
   }
 
 }

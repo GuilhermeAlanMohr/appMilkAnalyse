@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 class DetailsAnalysis extends StatelessWidget {
 
   final Analysis _analysis;
-  final Uint8List converter;
 
   DetailsAnalysis(this._analysis);
 

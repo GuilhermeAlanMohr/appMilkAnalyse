@@ -2,20 +2,33 @@ import 'package:geolocator/geolocator.dart';
 
 class Farm {
 
-  int _codFarm;
+  int? _codFarm;
   String _nomeFarm;
   String _nomeDonoFarm;
   String _cidade;
   int _quantidadeAnimais;
   double _tamanho;
-  Position _location;
+  double _latitude;
+  double _longitude;
 
-  Farm (this._codFarm, this._nomeFarm, this._nomeDonoFarm, this._cidade, this._quantidadeAnimais, this._tamanho, this._location);
+  Farm (this._codFarm, this._nomeFarm, this._nomeDonoFarm, this._cidade, this._quantidadeAnimais, this._tamanho, this._latitude, this._longitude);
 
   double get tamanho => _tamanho;
 
   set tamanho(double value) {
     _tamanho = value;
+  }
+
+  double get latitude => _latitude;
+
+  set latitude(double value) {
+    _latitude = value;
+  }
+
+  double get longitude => _longitude;
+
+  set longitude(double value) {
+    _longitude = value;
   }
 
   int get quantidadeAnimais => _quantidadeAnimais;
@@ -42,16 +55,10 @@ class Farm {
     _nomeFarm = value;
   }
 
-  int get codFarm => _codFarm;
+  int? get codFarm => _codFarm;
 
-  set codFarm(int value) {
+  set codFarm(int? value) {
     _codFarm = value;
-  }
-
-  Position get location => _location;
-
-  set location(Position value) {
-    _location = value;
   }
 
   Map<String, dynamic> toMap() {
@@ -62,16 +69,17 @@ class Farm {
       'cidade': _cidade,
       'tamanho': _tamanho,
       'quantidadeAnimais': _quantidadeAnimais,
-      'location': _location,
+      'latitude': _latitude,
+      'longitude': _longitude,
     };
   }
 
   factory Farm.fromMap (Map<String, dynamic> json){
-    return new Farm(json['codFarm'], json['nomeFarm'], json['nomeDonoFarm'], json['cidade'], json['quantidadeAnimais'],json['tamanho'],json['location']);
+    return new Farm(json['codFarm'], json['nomeFarm'], json['nomeDonoFarm'], json['cidade'], json['quantidadeAnimais'],json['tamanho'],json['latitude'],json['longitude']);
   }
 
   @override
   String toString() {
-    return 'Farm{_codFarm: $_codFarm, _nomeFarm: $_nomeFarm, _nomeDonoFarm: $_nomeDonoFarm, _cidade: $_cidade, _quantidadeAnimais: $_quantidadeAnimais, _tamanho: $_tamanho, _location: $_location}';
+    return 'Farm{_codFarm: $_codFarm, _nomeFarm: $_nomeFarm, _nomeDonoFarm: $_nomeDonoFarm, _cidade: $_cidade, _quantidadeAnimais: $_quantidadeAnimais, _tamanho: $_tamanho, _latitude: $_latitude, _longitude: $_longitude }';
   }
 }

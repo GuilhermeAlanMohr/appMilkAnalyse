@@ -1,6 +1,7 @@
 import 'package:appmilkanalyse/dao/analysis_dao.dart';
 import 'package:appmilkanalyse/model/analysis.dart';
 import 'package:appmilkanalyse/screens/detailsanalysis.dart';
+import 'package:appmilkanalyse/service/analysis_service.dart';
 import 'package:flutter/material.dart';
 
 class ListaAnalisis extends StatefulWidget {
@@ -31,11 +32,20 @@ class _ListaAnalisisState extends State<ListaAnalisis> {
               ),
               Expanded(
                 child: Container(
-                  child: ListView.builder(
-                    itemCount: AnalysisDAO.listarAnalysis.length,
-                    itemBuilder: (context, index){
-                      final Analysis a = AnalysisDAO.listarAnalysis[index];
-                      return AnalysisItem(a);
+                  child: FutureBuilder<List<Analysis>>(
+                    future: AnalysisService().getAnalises(),
+                    initialData: [],
+                    builder: (context, snapshot){
+                      final List<Analysis>? analises = snapshot.data;
+                      //return snapshot.hasData?
+                      return ListView.builder(
+                        padding: const EdgeInsets.all(10.0),
+                        itemCount: analises?.length,
+                        itemBuilder: (context, i) {
+                          final Analysis analysis = analises![i];
+                          return AnalysisItem(analysis);
+                        },
+                      );
                     },
                   ),
                 ),
@@ -75,7 +85,8 @@ class AnalysisItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Container(
+      child: Column(
         children: <Widget>[
           ListTile(
             onTap: () {
@@ -85,7 +96,7 @@ class AnalysisItem extends StatelessWidget {
             },
             leading: Icon(Icons.assignment_outlined),
             title: Text(
-              this._analysis.nomeAnalysis,
+              "Nome da Análise: "+this._analysis.nomeAnalysis,
               style: TextStyle(
                   fontSize: 24
               ),
@@ -98,7 +109,8 @@ class AnalysisItem extends StatelessWidget {
             thickness: 1.0,
             height: 0.0,
           )
-        ]
+        ],
+      ),
     );
   }
 }

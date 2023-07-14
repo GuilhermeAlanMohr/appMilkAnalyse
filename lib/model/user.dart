@@ -4,9 +4,10 @@ class User {
   String _nomeUser;
   String _email;
   String _token;
-  String _senha;
+  String? _senha;
+  String _permissao;
 
-  User (this._codUser, this._nomeUser, this._email, this._senha, this._token);
+  User (this._codUser, this._nomeUser, this._email, this._senha, this._token, this._permissao);
 
   int get codUser => _codUser;
 
@@ -32,10 +33,16 @@ class User {
     _token = value;
   }
 
-  String get senha => _senha;
+  String? get senha => _senha;
 
-  set senha(String value) {
+  set senha(String? value) {
     _senha = value;
+  }
+
+  String get permissao => _permissao;
+
+  set permissao(String value) {
+    _permissao = value;
   }
 
   Map<String, dynamic> toMap() {
@@ -45,11 +52,13 @@ class User {
       'email' : _email,
       'token': _token,
       'senha': _senha,
+      'permissao': _permissao,
     };
   }
 
   factory User.fromMap (Map<String, dynamic> userMap){
-    return new User(userMap['codUser'], userMap['nomeUser'], userMap['email'], userMap['senha'], userMap['token']);
+    //codUser,nomeUser,email,senha,token,permissao
+    return new User(userMap['codUser'], userMap['nomeUser'], userMap['email'], userMap['senha'], userMap['token'], userMap['permissao']);
   }
 
   @override

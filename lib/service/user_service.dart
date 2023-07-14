@@ -12,12 +12,12 @@ class UserService extends AbstractService{
     //print('fazer requisição para o back');
     //print('pegar resposta do back');
 
-    final conteudo = json.encode(<String, String>{'login':email, 'senha':senha});
+    final conteudo = json.encode(<String, String>{'email':email, 'senha':senha});
 
     final resposta = await http.post(Uri.parse(API_REST+'/login'),
         headers: headers, body: conteudo, encoding: null);
 
-    if(resposta.statusCode == 200){
+    if(resposta!.statusCode == 200){
 
       User u = User.fromMap(jsonDecode(resposta.body));
       print(u.email);

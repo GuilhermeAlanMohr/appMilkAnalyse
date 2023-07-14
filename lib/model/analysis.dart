@@ -5,9 +5,9 @@ import 'package:appmilkanalyse/model/farm.dart';
 
 class Analysis {
 
-  int _codAnalysis;
+  int? _codAnalysis;
   String _nomeAnalysis;
-  DateTime _dataOrdenha;
+  DateTime? _dataOrdenha;
   String _testeCaneca;
   String _cmt;
   double _ccs;
@@ -84,9 +84,9 @@ class Analysis {
     _testeCaneca = value;
   }
 
-  DateTime get dataOrdenha => _dataOrdenha;
+  DateTime? get dataOrdenha => _dataOrdenha;
 
-  set dataOrdenha(DateTime value) {
+  set dataOrdenha(DateTime? value) {
     _dataOrdenha = value;
   }
 
@@ -96,9 +96,9 @@ class Analysis {
     _nomeAnalysis = value;
   }
 
-  int get codAnalysis => _codAnalysis;
+  int? get codAnalysis => _codAnalysis;
 
-  set codAnalysis(int value) {
+  set codAnalysis(int? value) {
     _codAnalysis = value;
   }
 
@@ -107,7 +107,6 @@ class Analysis {
   set farm(Farm value) {
     _farm = value;
   }
-
 
   List<int> get foto => _foto;
 
@@ -119,7 +118,7 @@ class Analysis {
     return {
       'codAnalysis' : _codAnalysis,
       'nomeAnalysis' : _nomeAnalysis,
-      'dataOrdenha' : _dataOrdenha,
+      'dataOrdenha' : _dataOrdenha == null ? null : _dataOrdenha,
       'testeCaneca': _testeCaneca,
       'cmt': _cmt,
       'ccs': _ccs,
@@ -136,10 +135,10 @@ class Analysis {
   }
 
   factory Analysis.fromMap (Map<String, dynamic> json){
-    return new Analysis(
+    return Analysis(
       json['codAnalysis'],
       json['nomeAnalysis'],
-      json['dataOrdenha'],
+      json['dataOrdenha'] == null ? null : DateTime.parse(json['dataOrdenha']),
       json['testeCaneca'],
       json['cmt'],
       json['ccs'],

@@ -9,7 +9,7 @@ Future<Database> getDatabase() async{
   return openDatabase(
     path,
     onCreate: (db, version){
-      db.execute('CREATE TABLE USER (codUser INTEGER PRIMARY KEY, nomeUser TEXT, email TEXT, token TEXT, senha TEXT)');
+      db.execute('CREATE TABLE USER (codUser INTEGER PRIMARY KEY, nomeUser TEXT, email TEXT, token TEXT, senha TEXT NULL, permissao TEXT)');
     },
     version: 1,
   );

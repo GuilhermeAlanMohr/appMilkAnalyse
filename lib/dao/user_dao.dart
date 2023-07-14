@@ -9,6 +9,7 @@ class UserDAO{
   adicionarUser(User u) async{
 
     final Database db = await getDatabase();
+    db.delete('USER');
     db.insert('USER', u.toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
 
   }
@@ -21,6 +22,12 @@ class UserDAO{
     return List.generate(maps.length, (i) {
       return User.fromMap(maps[i]);
     });
+  }
+
+  Future<User> getUser() async{
+    //final db = await getDatabase();
+    final List<User> users = await getUsers();
+    return users[0];
   }
 
 }

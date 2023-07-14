@@ -31,7 +31,6 @@ dependencies:
     sdk: flutter
   sqflite:
   path:
-  
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -40,8 +39,9 @@ dependencies:
   geocoding: ^2.0.0
   http: ^0.13.6
   google_maps_flutter: ^2.3.0
-  camera: ^0.9.4+5
+  camera: ^0.8.1
   path_provider: ^2.0.5
+  http_interceptor: ^1.0.1
 
 dev_dependencies:
   flutter_test:
@@ -66,9 +66,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  assets:
-     - images/farm.jpg
-     - images/farm2.jpg
+  #assets:
+     #- images/farm.jpg
+     #- images/farm2.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

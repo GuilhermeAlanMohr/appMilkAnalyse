@@ -12,7 +12,7 @@ class DetailsFarm extends StatelessWidget {
   late List<Placemark> _marcador;
 
   DetailsFarm(this._farm){
-    this._localizacao = LatLng(this._farm.location.latitude, this._farm.location.longitude);
+    this._localizacao = LatLng(this._farm.latitude, this._farm.longitude);
     marcar();
   }
 

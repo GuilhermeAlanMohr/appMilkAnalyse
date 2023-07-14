@@ -1,6 +1,7 @@
 import 'package:appmilkanalyse/dao/farm_dao.dart';
 import 'package:appmilkanalyse/model/farm.dart';
 import 'package:appmilkanalyse/screens/listfarms.dart';
+import 'package:appmilkanalyse/service/farm_service.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -112,14 +113,17 @@ class CreateFarm extends StatelessWidget {
                           if (this._tamanhoController.text != '' && this._cidadeController.text != null &&
                               this._quantidadeAnimaisController.text != null && this._nomeDonoController.text != '' &&
                               this._nomeFarmController.text != ''){
-                            List<Farm> lista = FarmDAO.listarFarms;
-                            Farm f = Farm(lista.length+1, this._nomeFarmController.text, this._nomeDonoController.text, this._cidadeController.text,
+                            Farm f = Farm(null, this._nomeFarmController.text, this._nomeDonoController.text, this._cidadeController.text,
                                 int.parse(this._quantidadeAnimaisController.text), double.parse(this._tamanhoController.text),
-                                _position);
-                            FarmDAO.adicionar(f);
-                            Navigator.push( context, MaterialPageRoute(builder: (context) {
-                              return ListaFarms();
-                            }));
+                                _position.latitude, _position.longitude);
+                            int retorno = await FarmService().cadastrar(f);
+                            if (retorno == 200) {
+                              Navigator.push( context, MaterialPageRoute(builder: (context) {
+                                return ListaFarms();
+                              }));
+                            } else {
+                              debugPrint("Problemas ao cadastrar Fazenda");
+                            }
                           }
                         },
                         icon: Icon(Icons.add, color: Colors.white),

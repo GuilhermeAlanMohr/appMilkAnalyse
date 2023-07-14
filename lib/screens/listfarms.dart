@@ -1,6 +1,9 @@
 import 'package:appmilkanalyse/dao/farm_dao.dart';
+import 'package:appmilkanalyse/model/analysis.dart';
 import 'package:appmilkanalyse/model/farm.dart';
 import 'package:appmilkanalyse/screens/detailsfarm.dart';
+import 'package:appmilkanalyse/service/analysis_service.dart';
+import 'package:appmilkanalyse/service/farm_service.dart';
 import 'package:flutter/material.dart';
 
 class ListaFarms extends StatefulWidget {
@@ -31,11 +34,22 @@ class _ListaFarmsState extends State<ListaFarms> {
               ),
               Expanded(
                 child: Container(
-                  child: ListView.builder(
-                    itemCount: FarmDAO.listarFarms.length,
-                    itemBuilder: (context, index){
-                      final Farm f = FarmDAO.listarFarms[index];
-                      return FarmItem(f);
+                  child: FutureBuilder<List<Farm>>(
+                    future: FarmService().getFazendas(),
+                    initialData: [],
+                    builder: (context, snapshot){
+                      final List<Farm>? fazendas = snapshot.data;
+                      //return snapshot.hasData?
+                      print(fazendas.toString());
+                      return ListView.builder(
+                        padding: const EdgeInsets.all(10.0),
+                        itemCount: fazendas?.length,
+                        itemBuilder: (context, i) {
+                          final Farm farm = fazendas![i];
+                          print(farm.toString());
+                          return FarmItem(farm);
+                        },
+                      );
                     },
                   ),
                 ),
@@ -74,36 +88,39 @@ class FarmItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        ListTile(
-          onTap: () {
-            Navigator.push( context, MaterialPageRoute(builder: (context) {
-              return DetailsFarm(this._farm);
-            }));
-          },
-          leading: Icon(Icons.agriculture),
-          title: Text(
-            this._farm.nomeFarm,
-            style: TextStyle(
-                fontSize: 24
+    return Container(
+      child: Column(
+        children: <Widget>[
+          ListTile(
+            onTap: () {
+              Navigator.push( context, MaterialPageRoute(builder: (context) {
+                return DetailsFarm(this._farm);
+              }));
+            },
+            leading: Icon(Icons.agriculture),
+            title: Text(
+              "Fazenda: "+this._farm.nomeFarm,
+              style: TextStyle(
+                  fontSize: 24
+              ),
+            ),
+            subtitle: Text(
+              "Dono da Fazenda: "+this._farm.nomeDonoFarm,
+              style: TextStyle(
+                  fontSize: 18
+              ),
             ),
           ),
-          subtitle: Text(
-            this._farm.nomeDonoFarm,
-            style: TextStyle(
-                fontSize: 18
-            ),
-          ),
-        ),
-        Divider(
-          color: Colors.blueAccent,
-          indent: 70.0,
-          endIndent: 20,
-          thickness: 1.0,
-          height: 0.0,
-        )
-      ]
+          Divider(
+            color: Colors.blueAccent,
+            indent: 70.0,
+            endIndent: 20,
+            thickness: 1.0,
+            height: 0.0,
+          )
+        ],
+      ),
     );
   }
+
 }

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:appmilkanalyse/dao/analysis_dao.dart';
@@ -6,8 +7,11 @@ import 'package:appmilkanalyse/dao/farm_dao.dart';
 import 'package:appmilkanalyse/model/analysis.dart';
 import 'package:appmilkanalyse/model/farm.dart';
 import 'package:appmilkanalyse/screens/home.dart';
+import 'package:appmilkanalyse/screens/imageviewer.dart';
 import 'package:appmilkanalyse/screens/listanalysis.dart';
 import 'package:appmilkanalyse/screens/takepickturescreen.dart';
+import 'package:appmilkanalyse/service/analysis_service.dart';
+import 'package:appmilkanalyse/service/farm_service.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:camera/camera.dart';
@@ -16,8 +20,8 @@ import 'package:path_provider/path_provider.dart';
 
 class CreateAnalysis extends StatefulWidget {
 
-  CreateAnalysis(String? this._imagePath);
-  final String? _imagePath;
+  CreateAnalysis(Uint8List? this._imagePath);
+  final Uint8List? _imagePath;
 
   @override
   State<CreateAnalysis> createState() => _CreateAnalysisState(_imagePath);
@@ -26,9 +30,9 @@ class CreateAnalysis extends StatefulWidget {
 
 class _CreateAnalysisState extends State<CreateAnalysis>{
 
-  _CreateAnalysisState(String? this._pathImagem);
+  _CreateAnalysisState(Uint8List? this._pathImagem);
 
-  final String? _pathImagem;
+  final Uint8List? _pathImagem;
 
   final TextEditingController _nomeController = TextEditingController();
   final TextEditingController _dataOrdenhaController = TextEditingController();
@@ -42,10 +46,16 @@ class _CreateAnalysisState extends State<CreateAnalysis>{
   final TextEditingController _odorController = TextEditingController();
   final TextEditingController _viscusidadeController = TextEditingController();
   final TextEditingController _conservacaoController = TextEditingController();
-  final List<Farm> _listaFarms = FarmDAO.listarFarms;
   Farm? _farmSelecionada;
+  late Future<List<Farm>> _listaFarms;
 
   final GlobalKey _formKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    _getFarms();
+  }
 
   @override
   Widget build(BuildContext context){
@@ -218,24 +228,30 @@ class _CreateAnalysisState extends State<CreateAnalysis>{
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(20, 10, 20, 8),
-                  child: DropdownButton<Farm>(
-                    value: _farmSelecionada,
-                    onChanged: (Farm? newValue) {
-                      setState(() {
-                        _farmSelecionada = newValue;
-                      });
-                    },
-                    items: _listaFarms.map<DropdownMenuItem<Farm>>((Farm farm) {
-                      return DropdownMenuItem<Farm>(
-                        value: farm,
-                        child: Text(farm.nomeFarm),
+                  child: FutureBuilder<List<Farm>>(
+                    future: _listaFarms,
+                    builder: (context, snapshot){
+                      return DropdownButton<Farm>(
+                        value: _farmSelecionada,
+                        onChanged: (Farm? newValue) {
+                          setState(() {
+                            print("FAZENDA = "+newValue.toString());
+                            _farmSelecionada = newValue;
+                          });
+                        },
+                        items: snapshot.data?.map<DropdownMenuItem<Farm>>((Farm farm) {
+                          return DropdownMenuItem<Farm>(
+                            value: farm,
+                            child: Text(farm.nomeFarm),
+                          );
+                        }).toList(),
                       );
-                    }).toList(),
+                    },
                   ),
                 ),
                 this._pathImagem != null ?
                   Container(
-                    child: this._pathImagem!.startsWith("images/") ? Image.asset(this._pathImagem!!) : Image.file(File(this._pathImagem!!)),
+                    child: ImageViewer(imageBytes: this._pathImagem!!),
                     margin: EdgeInsets.all(15),
                   ) : Container(),
                   Container(
@@ -272,16 +288,19 @@ class _CreateAnalysisState extends State<CreateAnalysis>{
                       ),
                       onPressed: () async {
                         debugPrint("Clicou no botão de Salvar");
-                        List<Analysis> lista = AnalysisDAO.listarAnalysis;
-                        Analysis analysis = Analysis(lista.length+1, this._nomeController.text, DateTime.now(),
+                        Analysis analysis = Analysis(null, this._nomeController.text, DateTime.now(),
                             this._testeCEController.text, this._cmtController.text, double.parse(this._ccsController.text),
                             double.parse(this._cbtController.text), this._residuosAntibioticosController.text, this._saborController.text,
                             this._corController.text, this._odorController.text, this._viscusidadeController.text, this._conservacaoController.text,
                             _farmSelecionada!!, this._pathImagem!!) ;
-                        AnalysisDAO.adicionar(analysis);
-                        Navigator.push( context, MaterialPageRoute(builder: (context) {
-                          return ListaAnalisis();
-                        }));
+                        int retorno = await AnalysisService().cadastrar(analysis);
+                        if (retorno == 200) {
+                          Navigator.push( context, MaterialPageRoute(builder: (context) {
+                            return ListaAnalisis();
+                          }));
+                        } else {
+                          debugPrint("Falha ao salvar Análise");
+                        }
                       },
                       icon: Icon(Icons.add, color: Colors.white),
                     ),
@@ -328,11 +347,16 @@ class _CreateAnalysisState extends State<CreateAnalysis>{
                   ),
                   ],
                 )
+              ),
             ),
           ),
         ),
       ),
-    ),
     );
+  }
+  Future<void> _getFarms() async{
+    setState(() {
+      _listaFarms = FarmService().getFazendas();
+    });
   }
 }

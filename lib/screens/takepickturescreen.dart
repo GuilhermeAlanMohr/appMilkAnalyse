@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:appmilkanalyse/screens/createanlysis.dart';
 import 'package:camera/camera.dart';
@@ -80,13 +81,14 @@ class TakePictureScreenState extends State<TakePictureScreen> {
 
             if (!mounted) return;
 
+            final Uint8List _imagem = await image.readAsBytes();
             // If the picture was taken, display it on a new screen.
             await Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => CreateAnalysis(
                   // Pass the automatically generated path to
                   // the DisplayPictureScreen widget.
-                  image.path,
+                  _imagem
                 ),
               ),
             );
